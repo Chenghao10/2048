@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2048</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #fafafa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #1d1d1f;
+    }
+
+    #app {
+      width: 420px;
+    }
+
+    #header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    #title {
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -1.5px;
+      color: #1d1d1f;
+    }
+
+    #scores {
+      display: flex;
+      gap: 8px;
+    }
+
+    .score-card {
+      background: #f5f5f7;
+      border-radius: 8px;
+      padding: 6px 14px;
+      text-align: center;
+      min-width: 70px;
+    }
+
+    .score-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #86868b;
+    }
+
+    .score-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1d1d1f;
+    }
+
+    #board-container {
+      background: #e8e8ed;
+      border-radius: 10px;
+      padding: 8px;
+      position: relative;
+    }
+
+    #board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .cell {
+      background: rgba(255,255,255,0.5);
+      border-radius: 6px;
+      height: 92px;
+    }
+
+    #tile-layer {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      right: 8px;
+      bottom: 8px;
+      pointer-events: none;
+    }
+
+    .tile {
+      position: absolute;
+      width: calc(25% - 6px);
+      height: 92px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 28px;
+      transition: left 80ms ease, top 80ms ease;
+      will-change: left, top, transform;
+    }
+
+    .tile.new {
+      animation: appear 120ms ease forwards;
+    }
+
+    .tile.merged {
+      animation: pop 100ms ease forwards;
+    }
+
+    @keyframes appear {
+      from { transform: scale(0.5); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+
+    @keyframes pop {
+      0%   { transform: scale(1); }
+      50%  { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    #footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      color: #86868b;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: color 150ms, background 150ms;
+    }
+
+    button:hover {
+      color: #1d1d1f;
+      background: #f0f0f0;
+    }
+
+    #game-over {
+      display: none;
+      position: absolute;
+      inset: 0;
+      background: rgba(250,250,250,0.85);
+      border-radius: 10px;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    #game-over.visible {
+      display: flex;
+    }
+
+    #game-over p {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1d1d1f;
+    }
+
+    #game-over button {
+      background: #1d1d1f;
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+    }
+
+    #game-over button:hover {
+      background: #3a3a3c;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div id="header">
+      <div id="title">2048</div>
+      <div id="scores">
+        <div class="score-card">
+          <div class="score-label">SCORE</div>
+          <div class="score-value" id="score-display">0</div>
+        </div>
+        <div class="score-card">
+          <div class="score-label">BEST</div>
+          <div class="score-value" id="best-display">0</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="board-container">
+      <div id="board">
+        <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+        <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+        <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+        <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+      </div>
+      <div id="tile-layer"></div>
+      <div id="game-over">
+        <p>Game Over</p>
+        <button onclick="newGame()">Play Again</button>
+      </div>
+    </div>
+
+    <div id="footer">
+      <button onclick="undo()">Undo</button>
+      <button onclick="newGame()">New Game</button>
+    </div>
+  </div>
+
+  <script>
+    // placeholder — game logic goes here
+  </script>
+</body>
+</html>

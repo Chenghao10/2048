@@ -215,7 +215,7 @@ def draw_board(win, board, display_board, score, best, color_map, game_over=Fals
     win.refresh()
 
 
-def animate_slide(win, from_board, to_board, direction, score, best, color_map, steps=4):
+def animate_slide(win, from_board, to_board, score, best, color_map, steps=4):
     """Interpolate between from_board and to_board over `steps` frames."""
     for step in range(1, steps + 1):
         interp = copy.deepcopy(from_board)
@@ -301,7 +301,7 @@ def main(stdscr):
             best = score
             save_best(best)
 
-        animate_slide(stdscr, board, new_board, direction, score, best, color_map)
+        animate_slide(stdscr, board, new_board, score, best, color_map)
         board = new_board
         add_tile(board)
 

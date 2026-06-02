@@ -324,6 +324,64 @@
       b[r][c] = Math.random() < 0.1 ? 4 : 2;
       return [r, c];
     }
+
+    function tileLeft(c) {
+      return `calc(${c * 25}% + ${c * 2}px)`;
+    }
+
+    function tileTop(r) {
+      const cellH = 92;
+      const gap = 8;
+      return `${r * (cellH + gap)}px`;
+    }
+
+    function render(newTilePos = null, mergedPositions = []) {
+      const layer = document.getElementById('tile-layer');
+      layer.innerHTML = '';
+
+      for (let r = 0; r < 4; r++) {
+        for (let c = 0; c < 4; c++) {
+          const val = board[r][c];
+          if (val === 0) continue;
+
+          const tile = document.createElement('div');
+          tile.className = 'tile';
+
+          const style = tileStyle(val);
+          tile.style.background = style.bg;
+          tile.style.color = style.fg;
+          tile.style.fontSize = style.fontSize;
+          tile.style.left = tileLeft(c);
+          tile.style.top = tileTop(r);
+          tile.textContent = val;
+
+          const isNew = newTilePos && newTilePos[0] === r && newTilePos[1] === c;
+          const isMerged = mergedPositions.some(([mr, mc]) => mr === r && mc === c);
+          if (isNew) tile.classList.add('new');
+          if (isMerged) tile.classList.add('merged');
+
+          layer.appendChild(tile);
+        }
+      }
+
+      document.getElementById('score-display').textContent = score;
+      document.getElementById('best-display').textContent = best;
+      document.getElementById('game-over').classList.toggle('visible', gameOver);
+    }
+
+    function newGame() {
+      board = emptyBoard();
+      score = 0;
+      prevBoard = null;
+      prevScore = 0;
+      gameOver = false;
+      addTile(board);
+      addTile(board);
+      render();
+    }
+
+    // Init
+    newGame();
   </script>
 </body>
 </html>

@@ -247,7 +247,7 @@
     // State
     let board = [];
     let score = 0;
-    let best = parseInt(localStorage.getItem('2048-best') || '0');
+    let best = (() => { try { return parseInt(localStorage.getItem('2048-best') || '0'); } catch(e) { return 0; } })();
     let prevBoard = null;
     let prevScore = 0;
     let gameOver = false;
@@ -399,7 +399,7 @@
       score += gained;
       if (score > best) {
         best = score;
-        localStorage.setItem('2048-best', best);
+        try { localStorage.setItem('2048-best', best); } catch(e) {}
       }
 
       const mergedPositions = [];

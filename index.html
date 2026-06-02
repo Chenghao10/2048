@@ -221,7 +221,24 @@
   </div>
 
   <script>
-    // placeholder — game logic goes here
+    const TILE_COLORS = {
+      0:    { bg: 'rgba(255,255,255,0)',  fg: '#1d1d1f', fontSize: '28px' },
+      2:    { bg: '#fafafa',              fg: '#1d1d1f', fontSize: '28px' },
+      4:    { bg: '#f0f0f0',              fg: '#1d1d1f', fontSize: '28px' },
+      8:    { bg: '#d4f5df',              fg: '#1d1d1f', fontSize: '28px' },
+      16:   { bg: '#a8ebc1',              fg: '#1d1d1f', fontSize: '28px' },
+      32:   { bg: '#6dda96',              fg: '#fff',    fontSize: '28px' },
+      64:   { bg: '#44cc74',              fg: '#fff',    fontSize: '28px' },
+      128:  { bg: '#30d158',              fg: '#fff',    fontSize: '24px' },
+      256:  { bg: '#25a244',              fg: '#fff',    fontSize: '24px' },
+      512:  { bg: '#1a7a32',              fg: '#fff',    fontSize: '20px' },
+      1024: { bg: '#145c26',              fg: '#fff',    fontSize: '18px' },
+      2048: { bg: '#0e3d19',              fg: '#fff',    fontSize: '16px' },
+    };
+
+    function tileStyle(val) {
+      return TILE_COLORS[val] || { bg: '#0a2910', fg: '#fff', fontSize: '14px' };
+    }
   </script>
 </body>
 </html>

@@ -429,6 +429,37 @@
       }
       if (e.key === 'u' || e.key === 'U') undo();
     });
+
+    (function attachSwipe() {
+      const el = document.getElementById('board-container');
+      let startX = 0, startY = 0;
+
+      function onStart(x, y) { startX = x; startY = y; }
+
+      function onEnd(x, y) {
+        const dx = x - startX;
+        const dy = y - startY;
+        const threshold = 30;
+        if (Math.abs(dx) < threshold && Math.abs(dy) < threshold) return;
+        if (Math.abs(dx) > Math.abs(dy)) {
+          handleMove(dx > 0 ? 'right' : 'left');
+        } else {
+          handleMove(dy > 0 ? 'down' : 'up');
+        }
+      }
+
+      el.addEventListener('mousedown', e => onStart(e.clientX, e.clientY));
+      el.addEventListener('mouseup',   e => onEnd(e.clientX, e.clientY));
+
+      el.addEventListener('touchstart', e => {
+        const t = e.touches[0];
+        onStart(t.clientX, t.clientY);
+      }, { passive: true });
+      el.addEventListener('touchend', e => {
+        const t = e.changedTouches[0];
+        onEnd(t.clientX, t.clientY);
+      }, { passive: true });
+    })();
   </script>
 </body>
 </html>
